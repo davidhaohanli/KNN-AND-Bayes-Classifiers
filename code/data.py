@@ -101,33 +101,3 @@ def get_digits_by_label(digits, labels, query_label):
 
     matching_indices = labels == query_label
     return digits[matching_indices]
-
-
-def visualize(X,features):
-    plt.figure(figsize=(20, 5))
-    feature_count = features.shape[0]
-
-    # i: index
-    for i in range(feature_count):
-        plt.subplot(3, 5, i + 1)
-        plt.imshow(X[i].reshape((8,8)),cmap='gray')
-        plt.xlabel(features[i])
-        # plt.ylabel('target y')
-        # TODO: Plot feature i against y
-
-    plt.tight_layout()
-    plt.show()
-
-def main ():
-    train_data,_, _, _=load_all_data_from_zip('../a2digits.zip','../',shuffle=False);
-    #print (train_data.shape,train_labels.shape,test_data.shape,test_labels.shape)
-    step=700;
-    mean=np.zeros((10,64));
-    for i in range(10):
-        mean[i]=np.mean(train_data[i*step:(i+1)*step],axis=0);
-    #print (mean.shape)
-    visualize(mean,np.arange(0,10))
-
-
-if __name__=='__main__':
-    main();
