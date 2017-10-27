@@ -1,5 +1,6 @@
 import zipfile
 import numpy as np
+import re
 
 import os
 
@@ -15,9 +16,14 @@ def check_and_extract_zipfile(filename, data_dir):
     if os.path.isdir(data_dir) and not os.listdir(data_dir):
         pass
     else:
-        zip_f = zipfile.ZipFile(filename, 'r')
-        zip_f.extractall(data_dir)
-        zip_f.close()
+        file=re.findall('/.*\.',filename)
+        data_dir=data_dir+file[0][1:-1]
+        if not os.path.isdir(data_dir):
+            os.mkdir(data_dir)
+            zip_f = zipfile.ZipFile(filename, 'r')
+            zip_f.extractall(data_dir)
+            zip_f.close()
+        return data_dir;
 
 def load_data(data_dir, stem):
     """
@@ -76,7 +82,7 @@ def load_all_data_from_zip(zipfile, data_dir, shuffle=True):
         - test_data
         - test_labels
     '''
-    check_and_extract_zipfile(zipfile, data_dir)
+    data_dir=check_and_extract_zipfile(zipfile, data_dir);
     return load_all_data(data_dir, shuffle)
 
 def get_digits_by_label(digits, labels, query_label):
@@ -95,3 +101,10 @@ def get_digits_by_label(digits, labels, query_label):
 
     matching_indices = labels == query_label
     return digits[matching_indices]
+
+def main ():
+    train_data, train_labels, test_data, test_labels=load_all_data_from_zip('../a2digits.zip','../');
+    print (train_data.shape,train_labels.shape,test_data.shape,test_labels.shape)
+
+if __name__=='__main__':
+    main();
