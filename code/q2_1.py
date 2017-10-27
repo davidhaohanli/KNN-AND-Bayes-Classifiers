@@ -44,7 +44,8 @@ class KNearestNeighbor(object):
 
         You should return the digit label provided by the algorithm
         '''
-        digit = None
+        dist=self.l2_distance(test_point);
+
         return digit
 
 def cross_validation(knn, k_range=np.arange(1,15)):
@@ -62,11 +63,13 @@ def classification_accuracy(knn, k, eval_data, eval_labels):
     pass
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data('data')
+    train_data, train_labels, test_data, test_labels = data.load_all_data('../a2digits')
+    #print (test_labels)
     knn = KNearestNeighbor(train_data, train_labels)
 
     # Example usage:
     predicted_label = knn.query_knn(test_data[0], 1)
+    print (predicted_label)
 
 if __name__ == '__main__':
     main()
