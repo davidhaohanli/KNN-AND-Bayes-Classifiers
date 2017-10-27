@@ -47,15 +47,20 @@ class KNearestNeighbor(object):
         '''
         dist=self.l2_distance(test_point)
         ind=dist.argsort()
-        hashmap={'Dummy':0};
+        hashmap={'Dummy':[0,float('inf')]};
         res='Dummy'
         for i in range(k):
             if self.train_labels[ind[i]] not in hashmap:
-                hashmap[self.train_labels[ind[i]]]=1;
+                hashmap[self.train_labels[ind[i]]]=[1,dist[ind[i]]];
             else:
-                hashmap[self.train_labels[ind[i]]]+=1;
-            if hashmap[res] < hashmap[self.train_labels[ind[i]]]:
+                hashmap[self.train_labels[ind[i]]][0]+=1;
+                hashmap[self.train_labels[ind[i]]][0] += dist[ind[i]];
+            if hashmap[res][0] < hashmap[self.train_labels[ind[i]]][0]:
                 res=self.train_labels[ind[i]];
+                continue
+            if hashmap[res][0] == hashmap[self.train_labels[ind[i]]][0]:
+                if hashmap[res][1]>hashmap[self.train_labels[ind[i]]][1]:
+                    res=self.train_labels[ind[i]]
         return res
 
 def cross_validation(knn, k_range=np.arange(1,15)):
@@ -78,12 +83,10 @@ def main():
     knn = KNearestNeighbor(train_data, train_labels)
 
     # Example usage:
-    predicted_label = knn.query_knn(test_data[0], 1)
+    predicted_label = knn.query_knn(test_data[0], 100)
     print (predicted_label)
-    '''
     import q2_0
     q2_0.visualize(test_data[0].reshape([1,-1]))
-    '''
 
 if __name__ == '__main__':
     main()
