@@ -103,14 +103,14 @@ def get_digits_by_label(digits, labels, query_label):
     return digits[matching_indices]
 
 
-def visualize(X, y, features):
+def visualize(X,features):
     plt.figure(figsize=(20, 5))
-    feature_count = X.shape[1]
+    feature_count = features.shape[0]
 
     # i: index
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)
-        plt.plot(X[:, i], y, '.')
+        plt.imshow(X[i].reshape((8,8)),cmap='gray')
         plt.xlabel(features[i])
         # plt.ylabel('target y')
         # TODO: Plot feature i against y
@@ -124,10 +124,9 @@ def main ():
     step=700;
     mean=np.zeros((10,64));
     for i in range(10):
-        mean[i]=np.mean(train_data[i*step:(i+1)*step,:],axis=0);
+        mean[i]=np.mean(train_data[i*step:(i+1)*step],axis=0);
     #print (mean.shape)
-
-
+    visualize(mean,np.arange(0,10))
 
 
 if __name__=='__main__':
