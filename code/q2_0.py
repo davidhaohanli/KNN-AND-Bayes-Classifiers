@@ -21,7 +21,7 @@ def plot_means(train_data, train_labels):
     plt.imshow(all_concat, cmap='gray')
     plt.show()
 '''
-def visualize(X,features):
+def visualize(X,features=np.array(['Just One Dimension'])):
     plt.figure(figsize=(20, 5))
     feature_count = features.shape[0]
 
@@ -29,7 +29,7 @@ def visualize(X,features):
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)
         plt.imshow(X[i].reshape((8,8)),cmap='gray')
-        plt.xlabel(features[i])
+        #plt.xlabel(features[i])
         # plt.ylabel('target y')
         # TODO: Plot feature i against y
 

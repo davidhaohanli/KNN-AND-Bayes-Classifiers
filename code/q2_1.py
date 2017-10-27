@@ -8,6 +8,7 @@ import data
 import numpy as np
 # Import pyplot - plt.imshow is useful!
 import matplotlib.pyplot as plt
+from collections import Counter
 
 class KNearestNeighbor(object):
     '''
@@ -44,9 +45,18 @@ class KNearestNeighbor(object):
 
         You should return the digit label provided by the algorithm
         '''
-        dist=self.l2_distance(test_point);
-
-        return digit
+        dist=self.l2_distance(test_point)
+        ind=dist.argsort()
+        hashmap={'Dummy':0};
+        res='Dummy'
+        for i in range(k):
+            if self.train_labels[ind[i]] not in hashmap:
+                hashmap[self.train_labels[ind[i]]]=1;
+            else:
+                hashmap[self.train_labels[ind[i]]]+=1;
+            if hashmap[res] < hashmap[self.train_labels[ind[i]]]:
+                res=self.train_labels[ind[i]];
+        return res
 
 def cross_validation(knn, k_range=np.arange(1,15)):
     for k in k_range:
@@ -70,6 +80,10 @@ def main():
     # Example usage:
     predicted_label = knn.query_knn(test_data[0], 1)
     print (predicted_label)
+    '''
+    import q2_0
+    q2_0.visualize(test_data[0].reshape([1,-1]))
+    '''
 
 if __name__ == '__main__':
     main()
