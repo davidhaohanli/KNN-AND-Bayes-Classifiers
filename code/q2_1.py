@@ -95,10 +95,10 @@ def main():
     q2_0.visualize(test_data[0].reshape([1,-1]))
     '''
 
-    print ('Accuracy for train data with k=1',classification_accuracy(knn,1,train_data,train_labels),\
-           '\nAccuracy for train data with k=15',classification_accuracy(knn,15,train_data,train_labels), \
-           '\nAccuracy for test data with k=1',classification_accuracy(knn,1,test_data,test_labels),\
-           '\nAccuracy for test data with k=15',classification_accuracy(knn,15,test_data,train_labels))
+    print ('Accuracy for train data with k=1: ',classification_accuracy(knn,1,train_data,train_labels),\
+           '\nAccuracy for train data with k=15: ',classification_accuracy(knn,15,train_data,train_labels), \
+           '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\
+           '\nAccuracy for test data with k=15: ',classification_accuracy(knn,15,test_data,test_labels))
 
 if __name__ == '__main__':
     main()
