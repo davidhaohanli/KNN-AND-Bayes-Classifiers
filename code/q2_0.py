@@ -33,11 +33,11 @@ def visualize(X,features=np.array(['Just One Dimension']),timerSet=True):
         # plt.ylabel('target y')
         # TODO: Plot feature i against y
 
+    plt.tight_layout()
     if timerSet:
         timer = fig.canvas.new_timer(interval=3000)  # creating a timer object and setting an interval of 3000 milliseconds
         timer.add_callback(plt.close)
         timer.start();
-    plt.tight_layout()
     plt.show()
 
 def main ():
