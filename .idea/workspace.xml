@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3fe6bb9-62aa-4f2c-aa8f-3510a89e2a1a" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/csc411assignment2.iml" afterPath="$PROJECT_DIR$/.idea/csc411assignment2.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/q2_1.py" afterPath="$PROJECT_DIR$/code/q2_1.py" />
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
     </list>
     <ignored path="csc411assignment2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +30,13 @@
       <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/data.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="102">
               <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+=======
+            <state relative-caret-position="224">
+              <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -50,9 +59,17 @@
       <file leaf-file-name="q2_1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/q2_1.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-985">
               <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
+=======
+            <state relative-caret-position="296">
+              <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
+              <folding>
+                <element signature="e#97#108#0" expanded="true" />
+              </folding>
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
             </state>
           </provider>
         </entry>
@@ -320,8 +337,8 @@
     <recent_temporary>
       <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.q2_1" />
-        <item index="1" class="java.lang.String" itemvalue="Python.q2_0" />
-        <item index="2" class="java.lang.String" itemvalue="Python.data" />
+        <item index="1" class="java.lang.String" itemvalue="Python.data" />
+        <item index="2" class="java.lang.String" itemvalue="Python.q2_0" />
       </list>
     </recent_temporary>
   </component>
@@ -345,11 +362,20 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21932773" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3765363" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23681125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23681125" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18053928" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -469,8 +495,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/data.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="102">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+=======
+        <state relative-caret-position="224">
+          <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -479,9 +510,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/q2_1.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-985">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
+=======
+        <state relative-caret-position="296">
+          <caret line="82" column="22" selection-start-line="82" selection-start-column="22" selection-end-line="82" selection-end-column="22" />
+          <folding>
+            <element signature="e#97#108#0" expanded="true" />
+          </folding>
+>>>>>>> 6dc07eb5d88f33230300f3a521bbcc3517557c52
         </state>
       </provider>
     </entry>
