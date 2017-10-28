@@ -24,7 +24,7 @@ def main ():
 
         functions={'kFold':kFold_test,'query':query_test}
 
-        functions[input('Please input the test function name (kFold for kFold_test): ')]()
+        functions[input('Please input the test function name (kFold for kFold_test, query for query_test): ')]()
 
 if __name__ == '__main__':
     main();
