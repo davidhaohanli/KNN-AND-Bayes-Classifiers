@@ -6,9 +6,9 @@ Here you should implement and evaluate the k-NN classifier.
 
 import data
 import numpy as np
-# Import pyplot - plt.imshow is useful!
-import matplotlib.pyplot as plt
-from collections import Counter
+#Import pyplot - plt.imshow is useful!
+#import matplotlib.pyplot as plt
+#from collections import Counter
 
 class KNearestNeighbor(object):
     '''
@@ -66,11 +66,15 @@ class KNearestNeighbor(object):
         return res
 
 def cross_validation(knn, k_range=np.arange(1,15)):
+    res=['Dummy',float('inf')]
     for k in k_range:
         # Loop over folds
         # Evaluate k-NN
         # ...
-        pass
+        loss=k_fold(knn.train_data, knn.train_labels, k);
+        if loss < res[1]:
+            res=[k,loss];
+    return res;
 
 def classification_accuracy(knn, k, eval_data, eval_labels):
     '''
@@ -81,6 +85,30 @@ def classification_accuracy(knn, k, eval_data, eval_labels):
     for i in range(eval_data.shape[0]):
         res[i] = knn.query_knn(eval_data[i],k)==eval_labels[i];
     return res.mean();
+
+def k_fold(data,label,k,nFold=10):
+    '''
+    Input: x is the N x d design matrix
+           y is the N x 1 targets vector
+           K in the number of folds
+    '''
+    ## TODO
+
+    pieceLen = data.shape[0] // nFold;
+    ran=np.arange(data.shape[0]);
+    losses=np.zeros(nFold);
+    for i in range(nFold):
+        train_piece=np.concatenate((ran[0:i*pieceLen],ran[(i+1)*pieceLen:-1]));
+        #print (train_piece)
+        data_train=data[train_piece];
+        label_train=label[train_piece];
+        data_test=data[i*pieceLen:(i+1)*pieceLen];
+        label_test=label[i*pieceLen:(i+1)*pieceLen];
+        knn=KNearestNeighbor(data_train,label_train);
+        losses[i]=classification_accuracy(knn,k,data_test,label_test);
+    return losses.mean();
+
+
 
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data('../a2digits')
@@ -95,10 +123,15 @@ def main():
     q2_0.visualize(test_data[0].reshape([1,-1]))
     '''
 
-    print ('Accuracy for train data with k=1',classification_accuracy(knn,1,train_data,train_labels),\
-           '\nAccuracy for train data with k=15',classification_accuracy(knn,15,train_data,train_labels), \
-           '\nAccuracy for test data with k=1',classification_accuracy(knn,1,test_data,test_labels),\
-           '\nAccuracy for test data with k=15',classification_accuracy(knn,15,test_data,train_labels))
+    print ('Accuracy for train data with k=1: ',classification_accuracy(knn,1,train_data,train_labels),\
+           '\nAccuracy for train data with k=15: ',classification_accuracy(knn,15,train_data,train_labels), \
+           '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\
+           '\nAccuracy for test data with k=15: ',classification_accuracy(knn,15,test_data,test_labels))
+
+    [k,loss]=cross_validation(knn)
+    print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',loss)
+    print ('Accuracy for train data with optimal k: ',classification_accuracy(knn,k,train_data,train_labels))
+    print ('Accuracy for test data with optimal k: ', classification_accuracy(knn, k, test_data, test_labels))
 
 if __name__ == '__main__':
     main()
