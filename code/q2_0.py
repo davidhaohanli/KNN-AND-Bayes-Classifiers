@@ -21,20 +21,22 @@ def plot_means(train_data, train_labels):
     plt.imshow(all_concat, cmap='gray')
     plt.show()
 '''
-def visualize(X,features=np.array(['Just One Dimension'])):
+def visualize(X,features=np.array(['Just One Dimension']),timerSet=True):
     fig=plt.figure(figsize=(20, 5))
     feature_count = features.shape[0]
-    timer = fig.canvas.new_timer(interval=3000)  # creating a timer object and setting an interval of 3000 milliseconds
-    timer.add_callback(plt.close)
+
     # i: index
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)
-        timer.start()
         plt.imshow(X[i].reshape((8,8)),cmap='gray')
         #plt.xlabel(features[i])
         # plt.ylabel('target y')
         # TODO: Plot feature i against y
 
+    if timerSet:
+        timer = fig.canvas.new_timer(interval=3000)  # creating a timer object and setting an interval of 3000 milliseconds
+        timer.add_callback(plt.close)
+        timer.start();
     plt.tight_layout()
     plt.show()
 
@@ -46,7 +48,7 @@ def main ():
     for i in range(10):
         mean[i]=np.mean(train_data[i*step:(i+1)*step],axis=0);
     #print (mean.shape)
-    visualize(mean,np.arange(0,10))
+    visualize(mean,np.arange(0,10),False)
 
 if __name__ == '__main__':
     main()
