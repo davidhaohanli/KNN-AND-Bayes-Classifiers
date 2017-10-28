@@ -77,16 +77,24 @@ def classification_accuracy(knn, k, eval_data, eval_labels):
     '''
     pass
 
+def accuracy(knn):
+    
+
+
+
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data('../a2digits')
     #print (test_labels)
     knn = KNearestNeighbor(train_data, train_labels)
+    res=accuracy(knn)
 
     # Example usage:
+    '''
     predicted_label = knn.query_knn(test_data[0], 100)
     print (predicted_label)
     import q2_0
     q2_0.visualize(test_data[0].reshape([1,-1]))
+    '''
 
 if __name__ == '__main__':
     main()
