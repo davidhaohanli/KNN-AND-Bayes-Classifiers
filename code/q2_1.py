@@ -115,14 +115,6 @@ def main():
     #print (test_labels)
     knn = KNearestNeighbor(train_data, train_labels)
 
-    # Example usage:
-    '''
-    predicted_label = knn.query_knn(test_data[0], 100)
-    print (predicted_label)
-    import q2_0
-    q2_0.visualize(test_data[0].reshape([1,-1]))
-    '''
-
     print ('Accuracy for train data with k=1: ',classification_accuracy(knn,1,train_data,train_labels),\
            '\nAccuracy for train data with k=15: ',classification_accuracy(knn,15,train_data,train_labels), \
            '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\

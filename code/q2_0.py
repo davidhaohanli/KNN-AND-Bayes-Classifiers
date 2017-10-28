@@ -22,12 +22,14 @@ def plot_means(train_data, train_labels):
     plt.show()
 '''
 def visualize(X,features=np.array(['Just One Dimension'])):
-    plt.figure(figsize=(20, 5))
+    fig=plt.figure(figsize=(20, 5))
     feature_count = features.shape[0]
-
+    timer = fig.canvas.new_timer(interval=3000)  # creating a timer object and setting an interval of 3000 milliseconds
+    timer.add_callback(plt.close)
     # i: index
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)
+        timer.start()
         plt.imshow(X[i].reshape((8,8)),cmap='gray')
         #plt.xlabel(features[i])
         # plt.ylabel('target y')
