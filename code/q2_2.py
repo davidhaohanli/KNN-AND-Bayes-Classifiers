@@ -38,18 +38,23 @@ def compute_sigma_mles(train_data,means):
     for label in range(10):
         for sample in range(train_data.shape[1]):
             train_data[label][sample]-=means[label];
+
+    #compute sum_of_each_data((x-mean(x))*(y-mean(y))) for x,y in each dimension
     for label in range(10):
         #print ('label: ',label)
         for x in range(64):
             for y in range(64):
                 #print ('dimension',x,y)
-                for sample1 in range(train_data.shape[1]):
+                for sample in range(train_data.shape[1]):
                         cov[label][x][y]+=train_data[label][sample][x]*train_data[label][sample][y];
 
-    # Compute covariances
-    cov/=(train_data.shape[1]**2);
+    # Compute covariances: use sum computed last step divided by
+    cov/=(train_data.shape[1]);
+
+    # added 0.01I for stable computation
     for i in range(10):
         cov[i]+=0.01*np.identity(64);
+
     return cov
 
 def deShuffle(train_data, train_labels):
