@@ -6,10 +6,12 @@ Here you should implement and evaluate the Conditional Gaussian classifier.
 
 import data
 import numpy as np
+import q2_0
+import scipy.linalg as al
 # Import pyplot - plt.imshow is useful!
 import matplotlib.pyplot as plt
 
-def compute_mean_mles(train_data, train_labels):
+def compute_mean_mles(train_data):
     '''
     Compute the mean estimate for each digit class
 
@@ -17,34 +19,77 @@ def compute_mean_mles(train_data, train_labels):
     The ith row will correspond to the mean estimate for digit class i
     '''
     means = np.zeros((10, 64))
+    for label in range(10):
+        for i in range(64):
+            means[label]=np.mean(train_data[label],axis=0)
     # Compute means
     return means
 
-def compute_sigma_mles(train_data, train_labels):
+def compute_sigma_mles(train_data,means):
     '''
     Compute the covariance estimate for each digit class
 
     Should return a three dimensional numpy array of shape (10, 64, 64)
     consisting of a covariance matrix for each digit class 
     '''
-    covariances = np.zeros((10, 64, 64))
+    cov=np.zeros((10,64,64))
+    for label in range(10):
+        for sample in range(train_data.shape[1]):
+            train_data[label][sample]-=means[label];
+    for label in range(10):
+        #print ('label: ',label)
+        for x in range(64):
+            for y in range(64):
+                #print ('dimension',x,y)
+                for sample1 in range(train_data.shape[1]):
+                        cov[label][x][y]+=train_data[label][sample][x]*train_data[label][sample][y];
+
     # Compute covariances
-    return covariances
+    cov/=(train_data.shape[1]**2);
+    for i in range(10):
+        cov[i]+=0.01*np.identity(64);
+    return cov
+
+def deShuffle(train_data, train_labels):
+    # data label sorting (de-shuffle), use linear sort algorithm (counting sort)
+    data_clean = np.zeros((10, train_data.shape[0] // 10, 64));
+    cur = np.zeros(10);
+    for i in range(train_data.shape[0]):
+        # print (train_labels[i])
+        label = int(train_labels[i])
+        data_clean[label][int(cur[label])] = train_data[i];
+        cur[label] += 1;
+    return data_clean;
 
 def plot_cov_diagonal(covariances):
     # Plot the diagonal of each covariance matrix side by side
+    cov_diag = np.zeros((10, 64))
     for i in range(10):
-        cov_diag = np.diag(covariances[i])
+        cov_diag[i] = np.diag(covariances[i])
         # ...
+    q2_0.visualize(cov_diag, np.arange(10), False)
 
-def generative_likelihood(digits, means, covariances):
+def comp_logZ(cov):
+    logZ=np.zeros(10)
+    for i in range(10):
+        #print(cov[i].shape)
+        logZ[i] = np.log(np.sqrt(((2*np.pi)**64)*np.linalg.det(cov[i])));
+    return logZ
+
+def generative_likelihood(digits, means, covariances,logZ):
     '''
     Compute the generative log-likelihood:
         log p(x|y,mu,Sigma)
 
     Should return an n x 10 numpy array 
     '''
-    return None
+    gen_likelihood=np.zeros((digits.shape[0],10))
+    for i in range(10):
+        x_minus_mean=digits-means[i]
+        for n,data in enumerate(x_minus_mean):
+            gen_likelihood[n][i] = -(logZ[i]+0.5*np.dot(np.dot(data.T,np.linalg.inv(covariances[i])),data))
+    return gen_likelihood
+
 
 def conditional_likelihood(digits, means, covariances):
     '''
@@ -55,7 +100,8 @@ def conditional_likelihood(digits, means, covariances):
     This should be a numpy array of shape (n, 10)
     Where n is the number of datapoints and 10 corresponds to each digit class
     '''
-    return None
+    logZ=comp_logZ(covariances);
+    return generative_likelihood(digits,means,covariances,logZ)+1/10;
 
 def avg_conditional_likelihood(digits, labels, means, covariances):
     '''
@@ -79,11 +125,14 @@ def classify_data(digits, means, covariances):
     pass
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data('data')
-
+    train_data, train_labels, test_data, test_labels = data.load_all_data()
     # Fit the model
-    means = compute_mean_mles(train_data, train_labels)
-    covariances = compute_sigma_mles(train_data, train_labels)
+    data_clean=deShuffle(train_data,train_labels)
+    means = compute_mean_mles(data_clean)
+    covariances = compute_sigma_mles(data_clean, means)
+    plot_cov_diagonal(covariances)
+    con_likelihood=conditional_likelihood(train_data,means,covariances);
+    print ('Average conditional likelihood: ',con_likelihood.mean(axis=0))
 
     # Evaluation
 

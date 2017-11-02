@@ -16,8 +16,8 @@ def query_test():
     for i in range(test_data.shape[0]):
 
         predicted_label = knn.query_knn(test_data[i],14)#test optimal 14
-        print (predicted_label)
-        q2_0.visualize(test_data[i].reshape([1,-1]))
+        print ('predicted: ',predicted_label,'real: ',test_labels[i],'Result: ',predicted_label==test_labels[i])
+        q2_0.visualize(test_data[i].reshape([1,-1]),timerSet=False)
 
 def main ():
     while 1:

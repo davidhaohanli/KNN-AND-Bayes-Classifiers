@@ -43,7 +43,7 @@ def load_data(data_dir, stem):
     labels = np.reshape(labels, (-1))
     return data, labels
 
-def load_all_data(data_dir, shuffle=True):
+def load_all_data(data_dir='../a2digits', shuffle=True):
     '''
     Loads all data from the given data directory.
 
