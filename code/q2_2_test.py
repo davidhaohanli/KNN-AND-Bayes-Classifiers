@@ -9,6 +9,7 @@ def mean_test():
     #print (train_data.shape)
     mean=compute_mean_mles(deShuffle(train_data, train_labels));
     print (mean);
+    os.system('touch ../temp_data/mean')
     np.savetxt('../temp_data/mean',mean,delimiter=',')
     return mean
 
@@ -19,11 +20,12 @@ def covariance_test():
     #print (train_data.shape)
     cov=compute_sigma_mles(deShuffle(train_data, train_labels),compute_mean_mles(deShuffle(train_data, train_labels)));
     print (cov);
+    os.system('touch ../temp_data/cov')
     np.savetxt('../temp_data/cov', cov.reshape((10,-1)),delimiter=',')
     return cov
     pass;
 
-def load():
+def load_mean_cov():
     if not os.path.isfile('../temp_data/mean'):
         print ('calculating mean')
         mean = mean_test();
@@ -40,13 +42,13 @@ def load():
     return mean,cov
 
 def read_and_plot_test():
-    mean,cov=load();
+    mean,cov=load_mean_cov();
     plot_cov_diagonal(cov)
     pass;
 
 def con_hd():
     train_data, train_labels, _, _ = data.load_all_data()
-    mean, cov = load();
+    mean, cov = load_mean_cov();
     con_likelihood = conditional_likelihood(train_data, mean, cov);
     print('Average conditional likelihood: ', con_likelihood.mean(axis=0))
 
