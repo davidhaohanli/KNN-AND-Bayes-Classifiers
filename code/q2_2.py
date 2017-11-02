@@ -123,10 +123,10 @@ def classify_data(digits, means, covariances):
     '''
     Classify new points by taking the most likely posterior class
     '''
-    cond_likelihood = conditional_likelihood(digits, means, covariances)
 
     # Compute and return the most likely class
-    pass
+    return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
+
 
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data()
@@ -139,7 +139,7 @@ def main():
     avg_conditional_likelihood(train_data, labels, means, covariances,data.TRAIN_STEM)
     print('\nTest_data: ')
     avg_conditional_likelihood(test_data, labels,means, covariances, data.TEST_STEM)
-
+    print ()
     # Evaluation
 
 if __name__ == '__main__':

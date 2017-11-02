@@ -46,7 +46,7 @@ def read_and_plot_test():
     plot_cov_diagonal(cov)
     pass;
 
-def con_hd():
+def con_hd_test():
     train_data, train_labels, test_data, test_labels = data.load_all_data()
     mean, cov = load_mean_cov();
     print ('Train_data: ')
@@ -54,12 +54,17 @@ def con_hd():
     print ('\nTest_data: ')
     avg_conditional_likelihood(test_data,labels, mean, cov,data.TEST_STEM)
 
+def classify_test():
+    train_data, train_labels, test_data, test_labels = data.load_all_data()
+    mean, cov = load_mean_cov();
+    print (classify_data(train_data,mean,cov))
+
 def main():
 
     while 1:
 
         functions={'cov':covariance_test,'mean':mean_test,'plot':read_and_plot_test,\
-                   'con_hd':con_hd}
+                   'con_hd':con_hd_test, 'classification':classify_test}
 
         functions[input('Please input the test function name (cov, mean): ')]()
 
