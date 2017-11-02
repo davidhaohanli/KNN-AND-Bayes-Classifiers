@@ -124,6 +124,7 @@ def classify_data(digits, means, covariances):
     Classify new points by taking the most likely posterior class
     '''
     cond_likelihood = conditional_likelihood(digits, means, covariances)
+
     # Compute and return the most likely class
     pass
 

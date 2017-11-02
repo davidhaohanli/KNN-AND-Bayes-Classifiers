@@ -103,6 +103,11 @@ def k_fold(data,label,k,nFold=10):
         data_train=data[train_piece];
         label_train=label[train_piece];
         data_test=data[i*pieceLen:(i+1)*pieceLen];
+        label_test = label[i * pieceLen:(i + 1) * pieceLen];
+        knn = KNearestNeighbor(data_train, label_train);
+        accuracies[i] = classification_accuracy(knn, k, data_test, label_test);
+    return accuracies.mean();
+
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data('../a2digits')
     #print (test_labels)
@@ -112,6 +117,9 @@ def main():
            '\nAccuracy for train data with k=15: ',classification_accuracy(knn,15,train_data,train_labels), \
            '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\
            '\nAccuracy for test data with k=15: ',classification_accuracy(knn,15,test_data,test_labels))
+
+
+
 
     [k,loss]=cross_validation(knn)
     print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',loss)
