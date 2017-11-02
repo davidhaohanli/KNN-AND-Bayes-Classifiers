@@ -10,7 +10,7 @@ def mean_test():
     pass;
 
 def covariance_test():
-    train_data, train_labels, _,_ = data.load_all_data('../a2digits')
+    train_data, train_labels, _,_ = data.load_all_data()
     #print (train_data.shape)
     print (compute_sigma_mles(deShuffle(train_data, train_labels),compute_mean_mles(deShuffle(train_data, train_labels))))
     pass;

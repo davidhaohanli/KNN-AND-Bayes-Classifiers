@@ -109,7 +109,7 @@ def classify_data(digits, means, covariances):
     pass
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data('data')
+    train_data, train_labels, test_data, test_labels = data.load_all_data()
 
     # Fit the model
     data_clean=deShuffle(train_data,train_labels)
