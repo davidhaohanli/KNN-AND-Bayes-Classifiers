@@ -22,9 +22,9 @@ def query_test():
 def main ():
     while 1:
 
-        functions={'kFold':kFold_test,'query':query_test}
+        functions={'kFold':kFold_test,'query':query_test,'q':exit}
 
-        functions[input('Please input the test function name (kFold, query): ')]()
+        functions[input('Please input the test function name (kFold, query, q for exit): ')]()
 
 if __name__ == '__main__':
     main();

@@ -128,6 +128,9 @@ def classify_data(digits, means, covariances):
     return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
 
 
+def accuracy(labels,digits,means,covariance):
+    return np.equal(labels,classify_data(digits,means,covariance)).mean();
+
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data()
     # Fit the model
@@ -139,7 +142,9 @@ def main():
     avg_conditional_likelihood(train_data, labels, means, covariances,data.TRAIN_STEM)
     print('\nTest_data: ')
     avg_conditional_likelihood(test_data, labels,means, covariances, data.TEST_STEM)
-    print ()
+    print('The accuracy for train data is: ',accuracy(train_labels, train_data, means, covariances));
+    print('The accuracy for test data is: ',accuracy(test_labels, test_data, means, covariances));
+
     # Evaluation
 
 if __name__ == '__main__':
