@@ -11,6 +11,8 @@ import q2_0
 # Import pyplot - plt.imshow is useful!
 import matplotlib.pyplot as plt
 
+labels=np.arange(10)
+
 def compute_mean_mles(train_data):
     '''
     Compute the mean estimate for each digit class
@@ -103,7 +105,7 @@ def conditional_likelihood(digits, means, covariances):
     logZ=comp_logZ(covariances);
     return generative_likelihood(digits,means,covariances,logZ)+1/10;
 
-def avg_conditional_likelihood(digits, labels, means, covariances):
+def avg_conditional_likelihood(digits, labels, means, covariances,stem):
     '''
     Compute the average conditional likelihood over the true class labels
 
@@ -112,7 +114,8 @@ def avg_conditional_likelihood(digits, labels, means, covariances):
     i.e. the average log likelihood that the model assigns to the correct class label
     '''
     cond_likelihood = conditional_likelihood(digits, means, covariances)
-
+    for i in labels:
+        print('Average conditional likelihood for '+stem+'data in class',i,': ', cond_likelihood[i].mean())
     # Compute as described above and return
     return None
 
@@ -131,8 +134,10 @@ def main():
     means = compute_mean_mles(data_clean)
     covariances = compute_sigma_mles(data_clean, means)
     plot_cov_diagonal(covariances)
-    con_likelihood=conditional_likelihood(train_data,means,covariances);
-    print ('Average conditional likelihood: ',con_likelihood.mean(axis=0))
+    print('Train_data: ')
+    avg_conditional_likelihood(train_data, labels, means, covariances,data.TRAIN_STEM)
+    print('\nTest_data: ')
+    avg_conditional_likelihood(test_data, labels,means, covariances, data.TEST_STEM)
 
     # Evaluation
 

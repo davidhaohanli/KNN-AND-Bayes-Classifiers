@@ -72,7 +72,7 @@ def cross_validation(knn, k_range=np.arange(1,16)):
         # Evaluate k-NN
         # ...
         accuracy=k_fold(knn.train_data, knn.train_labels, k);
-        if accuracy > res[1]:
+        if accuracy >= res[1]:
             res=[k,accuracy];
     return res;
 
@@ -119,11 +119,12 @@ def main():
            '\nAccuracy for train data with k=15: ',classification_accuracy(knn,15,train_data,train_labels), \
            '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\
            '\nAccuracy for test data with k=15: ',classification_accuracy(knn,15,test_data,test_labels))
-
+    
     [k,loss]=cross_validation(knn)
     print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',loss)
     print ('Accuracy for train data with optimal k: ',classification_accuracy(knn,k,train_data,train_labels))
     print ('Accuracy for test data with optimal k: ', classification_accuracy(knn, k, test_data, test_labels))
+
 
 if __name__ == '__main__':
     main()

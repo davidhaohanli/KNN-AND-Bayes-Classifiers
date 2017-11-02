@@ -47,10 +47,12 @@ def read_and_plot_test():
     pass;
 
 def con_hd():
-    train_data, train_labels, _, _ = data.load_all_data()
+    train_data, train_labels, test_data, test_labels = data.load_all_data()
     mean, cov = load_mean_cov();
-    con_likelihood = conditional_likelihood(train_data, mean, cov);
-    print('Average conditional likelihood: ', con_likelihood.mean(axis=0))
+    print ('Train_data: ')
+    avg_conditional_likelihood(train_data,labels, mean, cov,data.TRAIN_STEM)
+    print ('\nTest_data: ')
+    avg_conditional_likelihood(test_data,labels, mean, cov,data.TEST_STEM)
 
 def main():
 
