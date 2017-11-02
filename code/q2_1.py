@@ -65,15 +65,15 @@ class KNearestNeighbor(object):
                     res=self.train_labels[ind[i]]
         return res
 
-def cross_validation(knn, k_range=np.arange(1,15)):
-    res=['Dummy',float('inf')]
+def cross_validation(knn, k_range=np.arange(1,16)):
+    res=['Dummy',float('-inf')]
     for k in k_range:
         # Loop over folds
         # Evaluate k-NN
         # ...
-        loss=k_fold(knn.train_data, knn.train_labels, k);
-        if loss < res[1]:
-            res=[k,loss];
+        accuracy=k_fold(knn.train_data, knn.train_labels, k);
+        if accuracy > res[1]:
+            res=[k,accuracy];
     return res;
 
 def classification_accuracy(knn, k, eval_data, eval_labels):
@@ -96,7 +96,7 @@ def k_fold(data,label,k,nFold=10):
 
     pieceLen = data.shape[0] // nFold;
     ran=np.arange(data.shape[0]);
-    losses=np.zeros(nFold);
+    accuracies=np.zeros(nFold);
     for i in range(nFold):
         train_piece=np.concatenate((ran[0:i*pieceLen],ran[(i+1)*pieceLen:-1]));
         #print (train_piece)
@@ -105,8 +105,8 @@ def k_fold(data,label,k,nFold=10):
         data_test=data[i*pieceLen:(i+1)*pieceLen];
         label_test=label[i*pieceLen:(i+1)*pieceLen];
         knn=KNearestNeighbor(data_train,label_train);
-        losses[i]=classification_accuracy(knn,k,data_test,label_test);
-    return losses.mean();
+        accuracies[i]=classification_accuracy(knn,k,data_test,label_test);
+    return accuracies.mean();
 
 
 
