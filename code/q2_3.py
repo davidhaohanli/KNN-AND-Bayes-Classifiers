@@ -6,6 +6,8 @@ Here you should implement and evaluate the Naive Bayes classifier.
 
 import data
 import numpy as np
+import q2_2
+import q2_0
 # Import pyplot - plt.imshow is useful!
 import matplotlib.pyplot as plt
 
@@ -15,7 +17,7 @@ def binarize_data(pixel_values):
     '''
     return np.where(pixel_values > 0.5, 1.0, 0.0)
 
-def compute_parameters(train_data, train_labels):
+def compute_parameters(train_data):
     '''
     Compute the eta MAP estimate/MLE with augmented data
 
@@ -23,14 +25,17 @@ def compute_parameters(train_data, train_labels):
     where the ith row corresponds to the ith digit class.
     '''
     eta = np.zeros((10, 64))
+    for label in range(train_data.shape[0]):
+        for dim in range(64):
+            eta[label][dim]=train_data[label][:][dim].mean()+0.001
+
     return eta
 
 def plot_images(class_images):
     '''
     Plot each of the images corresponding to each class side by side in grayscale
     '''
-    for i in range(10):
-        img_i = class_images[i]
+    q2_0.visualize(class_images,np.arange(10))
         # ...
 
 def generate_new_data(eta):
@@ -50,7 +55,12 @@ def generative_likelihood(bin_digits, eta):
 
     Should return an n x 10 numpy array 
     '''
-    return None
+    gen_hd=np.zeros((bin_digits.shape[1],10));
+    for label in range(10):
+        for n in range(bin_digits.shape[1]):
+            gen_hd[n][label]= (bin_digits[label][n]*np.log(eta[label])+(1-bin_digits[label][n])*\
+                                                                      np.log(1-eta[label])).sum()
+    return gen_hd
 
 def conditional_likelihood(bin_digits, eta):
     '''
@@ -85,14 +95,17 @@ def classify_data(bin_digits, eta):
     pass
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data('data')
-    train_data, test_data = binarize_data(train_data), binarize_data(test_data)
-
+    train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=False)
+    train_data = q2_2.deShuffle(binarize_data(train_data),train_labels,shuffled=False)
+    test_data = q2_2.deShuffle(binarize_data(test_data),test_labels,shuffled=False)
     # Fit the model
-    eta = compute_parameters(train_data, train_labels)
-
+    eta = compute_parameters(train_data)
+    #print (np.log(eta))
+    #print (eta.shape)
     # Evaluation
     plot_images(eta)
+
+    print (generative_likelihood(train_data,eta))
 
     generate_new_data(eta)
 

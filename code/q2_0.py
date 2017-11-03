@@ -21,10 +21,9 @@ def plot_means(train_data, train_labels):
     plt.imshow(all_concat, cmap='gray')
     plt.show()
 '''
-def visualize(X,features=np.array(['Just One Dimension']),timerSet=True):
+def visualize(X,features=np.array(['Just One Dimension']),timerSet=False):
     fig=plt.figure(figsize=(20, 5))
     feature_count = features.shape[0]
-
     # i: index
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)

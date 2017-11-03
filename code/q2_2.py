@@ -137,9 +137,9 @@ def accuracy(labels,digits,means,covariance):
     return np.equal(labels,classify_data(digits,means,covariance)).mean();
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=True)
+    train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=False)
     # Fit the model
-    data_clean=deShuffle(train_data,train_labels,shuffled=True)
+    data_clean=deShuffle(train_data,train_labels,shuffled=False)
     means = compute_mean_mles(data_clean)
     covariances = compute_sigma_mles(data_clean, means)
     plot_cov_diagonal(covariances)
