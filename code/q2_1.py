@@ -61,7 +61,7 @@ class KNearestNeighbor(object):
                 res=self.train_labels[ind[i]];
                 continue
             if hashmap[res][0] == hashmap[self.train_labels[ind[i]]][0]:
-                if hashmap[res][1]>hashmap[self.train_labels[ind[i]]][1]:
+                if hashmap[res][1] > hashmap[self.train_labels[ind[i]]][1]:
                     res=self.train_labels[ind[i]]
         return res
 
