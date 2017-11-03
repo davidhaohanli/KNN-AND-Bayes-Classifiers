@@ -96,7 +96,6 @@ def generative_likelihood(digits, means, covariances,logZ):
             gen_likelihood[n][i] = -(logZ[i]+0.5*np.dot(np.dot(data.T,np.linalg.inv(covariances[i])),data))
     return gen_likelihood
 
-
 def conditional_likelihood(digits, means, covariances):
     '''
     Compute the conditional likelihood:
@@ -130,7 +129,6 @@ def classify_data(digits, means, covariances):
 
     # Compute and return the most likely class
     return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
-
 
 def accuracy(labels,digits,means,covariance):
     return np.equal(labels,classify_data(digits,means,covariance)).mean();
