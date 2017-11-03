@@ -21,8 +21,7 @@ def compute_mean_mles(train_data):
     '''
     means = np.zeros((10, 64))
     for label in range(10):
-        for i in range(64):
-            means[label]=np.mean(train_data[label],axis=0)
+        means[label]=np.mean(train_data[label],axis=0)
     # Compute means
     return means
 
@@ -76,7 +75,7 @@ def plot_cov_diagonal(covariances):
     for i in range(10):
         cov_diag[i] = np.diag(covariances[i])
         # ...
-    q2_0.visualize(cov_diag, np.arange(10), False)
+    q2_0.visualize(cov_diag, np.arange(10), 10000)
 
 def comp_logZ(cov):
     logZ=np.zeros(10)
