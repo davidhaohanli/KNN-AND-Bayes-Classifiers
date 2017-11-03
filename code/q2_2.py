@@ -56,15 +56,18 @@ def compute_sigma_mles(train_data,means):
 
     return cov
 
-def deShuffle(train_data, train_labels):
+def deShuffle(train_data, train_labels,shuffled=True):
     # data label sorting (de-shuffle), use linear sort algorithm (counting sort)
-    data_clean = np.zeros((10, train_data.shape[0] // 10, 64));
-    cur = np.zeros(10);
-    for i in range(train_data.shape[0]):
-        # print (train_labels[i])
-        label = int(train_labels[i])
-        data_clean[label][int(cur[label])] = train_data[i];
-        cur[label] += 1;
+    if shuffled:
+        data_clean = np.zeros((10, train_data.shape[0]//10, 64));
+        cur = np.zeros(10);
+        for i in range(train_data.shape[0]):
+            # print (train_labels[i])
+            label = int(train_labels[i])
+            data_clean[label][int(cur[label])] = train_data[i];
+            cur[label] += 1;
+    else:
+        return train_data.reshape((10,-1,64));
     return data_clean;
 
 def plot_cov_diagonal(covariances):
@@ -95,7 +98,6 @@ def generative_likelihood(digits, means, covariances,logZ):
         for n,data in enumerate(x_minus_mean):
             gen_likelihood[n][i] = -(logZ[i]+0.5*np.dot(np.dot(data.T,np.linalg.inv(covariances[i])),data))
     return gen_likelihood
-
 
 def conditional_likelihood(digits, means, covariances):
     '''
@@ -131,14 +133,13 @@ def classify_data(digits, means, covariances):
     # Compute and return the most likely class
     return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
 
-
 def accuracy(labels,digits,means,covariance):
     return np.equal(labels,classify_data(digits,means,covariance)).mean();
 
 def main():
-    train_data, train_labels, test_data, test_labels = data.load_all_data()
+    train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=True)
     # Fit the model
-    data_clean=deShuffle(train_data,train_labels)
+    data_clean=deShuffle(train_data,train_labels,shuffled=True)
     means = compute_mean_mles(data_clean)
     covariances = compute_sigma_mles(data_clean, means)
     plot_cov_diagonal(covariances)
