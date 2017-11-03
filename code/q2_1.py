@@ -8,7 +8,6 @@ import data
 import numpy as np
 #Import pyplot - plt.imshow is useful!
 #import matplotlib.pyplot as plt
-#from collections import Counter
 
 class KNearestNeighbor(object):
     '''

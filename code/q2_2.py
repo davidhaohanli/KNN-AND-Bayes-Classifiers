@@ -8,8 +8,7 @@ import data
 import numpy as np
 import q2_0
 #import scipy.linalg as al
-# Import pyplot - plt.imshow is useful!
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 labels=np.arange(10)
 
