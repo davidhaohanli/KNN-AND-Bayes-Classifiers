@@ -15,6 +15,7 @@ Please keep the file in such structure
 |   |--q2_1.py
 |   |--q2_1_test.py
 |   |--q2_2.py
+|   |--q2_2_test.py
 |   |--q2_3.py
 |
 |--a2digits.zip
