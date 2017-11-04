@@ -71,7 +71,7 @@ def conditional_likelihood(bin_digits, eta):
     This should be a numpy array of shape (n, 10)
     Where n is the number of datapoints and 10 corresponds to each digit class
     '''
-    return None
+    return generative_likelihood(bin_digits,eta)+np.log(1/10);
 
 def avg_conditional_likelihood(bin_digits, labels, eta):
     '''
@@ -105,7 +105,8 @@ def main():
     # Evaluation
     plot_images(eta)
 
-    print (generative_likelihood(train_data,eta))
+
+    print (conditional_likelihood(train_data,eta))
 
     generate_new_data(eta)
 

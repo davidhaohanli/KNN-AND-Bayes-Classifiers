@@ -108,7 +108,7 @@ def conditional_likelihood(digits, means, covariances):
     Where n is the number of datapoints and 10 corresponds to each digit class
     '''
     logZ=comp_logZ(covariances);
-    return generative_likelihood(digits,means,covariances,logZ)+1/10;
+    return generative_likelihood(digits,means,covariances,logZ)+np.log(1/10);
 
 def avg_conditional_likelihood(digits, labels, means, covariances,stem):
     '''
