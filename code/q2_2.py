@@ -110,7 +110,7 @@ def conditional_likelihood(digits, means, covariances):
     logZ=comp_logZ(covariances);
     return generative_likelihood(digits,means,covariances,logZ)+np.log(1/10);
 
-def avg_conditional_likelihood(digits, labels, means, covariances,stem):
+def avg_conditional_likelihood(digits, labels, means, covariances):
     '''
     Compute the average conditional likelihood over the true class labels
 
@@ -118,22 +118,29 @@ def avg_conditional_likelihood(digits, labels, means, covariances,stem):
 
     i.e. the average log likelihood that the model assigns to the correct class label
     '''
-    cond_likelihood = conditional_likelihood(digits, means, covariances)
-    for i in labels:
-        print('Average conditional likelihood for '+stem+'data in class',i,': ', cond_likelihood[i].mean())
-    # Compute as described above and return
-    return None
+    cond_hd=conditional_likelihood(digits,means,covariances)
+    sum_hd=0;
+    for n in range(digits.shape[0]):
+        sum_hd += cond_hd[n][int(labels[n])]
+    return sum_hd/digits.shape[0],cond_hd;
 
-def classify_data(digits, means, covariances):
+def classify_data(digits, means, covariances,con_hd=False):
     '''
     Classify new points by taking the most likely posterior class
     '''
 
     # Compute and return the most likely class
-    return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
+    if con_hd is False:
+        return np.argmax(conditional_likelihood(digits, means, covariances),axis=1)
+    else:
+        return np.argmax(con_hd,axis=1)
 
-def accuracy(labels,digits,means,covariance):
-    return np.equal(labels,classify_data(digits,means,covariance)).mean();
+def accuracy(labels,digits,means,covariance,con_hd=False):
+
+    if con_hd is False:
+        return np.equal(labels,classify_data(digits,means,covariance)).mean();
+    else:
+        return np.equal(labels,classify_data(digits,means,covariance,con_hd)).mean();
 
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=False)
@@ -142,12 +149,16 @@ def main():
     means = compute_mean_mles(data_clean)
     covariances = compute_sigma_mles(data_clean, means)
     plot_cov_diagonal(covariances)
+    train_hd=avg_conditional_likelihood(train_data, train_labels, means, covariances)
+    test_hd=avg_conditional_likelihood(test_data, test_labels, means, covariances)
     print('Train_data: ')
-    avg_conditional_likelihood(train_data, labels, means, covariances,data.TRAIN_STEM)
+    print('Average conditional likelihood for train data in correct class is: ',\
+          train_hd[0])
     print('\nTest_data: ')
-    avg_conditional_likelihood(test_data, labels,means, covariances, data.TEST_STEM)
-    print('\nThe accuracy for train data is: ',accuracy(train_labels, train_data, means, covariances));
-    print('The accuracy for test data is: ',accuracy(test_labels, test_data, means, covariances));
+    print('Average conditional likelihood for test data in correct class is: ', \
+          test_hd[0])
+    print('\nThe accuracy for train data is: ',accuracy(train_labels, train_data, means, covariances,train_hd[1]));
+    print('The accuracy for test data is: ',accuracy(test_labels, test_data, means, covariances,test_hd[1]));
 
     # Evaluation
 
