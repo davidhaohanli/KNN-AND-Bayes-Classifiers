@@ -26,17 +26,13 @@ def compute_parameters(train_data):
     You should return a numpy array of shape (10, 64)
     where the ith row corresponds to the ith digit class.
     '''
-    eta = np.zeros((10, 64))
-    for label in range(train_data.shape[0]):
-        for dim in range(64):
-            eta[label][dim]=(train_data[label][:][dim].sum()+1)/(train_data.shape[1]+2)
-    return eta
+    return (train_data.sum(axis=1)+1)/(train_data.shape[1]+2)
 
-def plot_images(class_images):
+def plot_images(class_images,thisLabels=labels):
     '''
     Plot each of the images corresponding to each class side by side in grayscale
     '''
-    q2_0.visualize(class_images,np.arange(10))
+    q2_0.visualize(class_images,thisLabels)
         # ...
 
 def generate_new_data(eta):
@@ -100,7 +96,9 @@ def accuracy(labels,bin_digits,eta):
 
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=False)
-    data_clean = q2_2.deShuffle(binarize_data(train_data),train_labels,shuffled=False)
+    train_data = binarize_data(train_data);
+    test_data = binarize_data(test_data);
+    data_clean = q2_2.deShuffle(train_data,train_labels,shuffled=False)
     # Fit the model
     eta= compute_parameters(data_clean)
     #print (np.log(eta))

@@ -50,9 +50,9 @@ def con_hd_test():
     train_data, train_labels, test_data, test_labels = data.load_all_data()
     mean, cov = load_mean_cov();
     print ('Train_data: ')
-    avg_conditional_likelihood(train_data,labels, mean, cov,data.TRAIN_STEM)
+    avg_conditional_likelihood(train_data, labels, mean, cov,data.TRAIN_STEM)
     print ('\nTest_data: ')
-    avg_conditional_likelihood(test_data,labels, mean, cov,data.TEST_STEM)
+    avg_conditional_likelihood(test_data, labels, mean, cov,data.TEST_STEM)
 
 def classify_test():
     train_data, train_labels, test_data, test_labels = data.load_all_data()
