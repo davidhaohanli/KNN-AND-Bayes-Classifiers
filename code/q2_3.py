@@ -42,8 +42,8 @@ def generate_new_data(eta):
 
     Plot these values
     '''
-    generated_data = np.zeros((10, 64))
-    plot_images(generated_data)
+    #generated_data = np.zeros((10, 64))
+    plot_images(binarize_data(eta))
 
 def generative_likelihood(bin_digits, eta):
     '''
@@ -105,7 +105,7 @@ def main():
     #print (eta.shape)
     # Evaluation
     plot_images(eta)
-
+    generate_new_data(eta)
     print('Train_data: ')
     print('Average conditional likelihood for train data in correct class is: ',\
           avg_conditional_likelihood(train_data, train_labels, eta))
@@ -115,7 +115,7 @@ def main():
     print('\nThe accuracy for train data is: ',accuracy(train_labels, train_data, eta));
     print('The accuracy for test data is: ',accuracy(test_labels, test_data,eta));
 
-    generate_new_data(eta)
+
 
 if __name__ == '__main__':
     main()
