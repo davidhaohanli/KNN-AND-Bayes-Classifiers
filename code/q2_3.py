@@ -69,7 +69,7 @@ def conditional_likelihood(bin_digits, eta):
     '''
     return generative_likelihood(bin_digits,eta)+np.log(1/10);
 
-def avg_conditional_likelihood(bin_digits,labels, eta,stem):
+def avg_conditional_likelihood(bin_digits,labels, eta):
     '''
     Compute the average conditional likelihood over the true class labels
 
@@ -77,11 +77,11 @@ def avg_conditional_likelihood(bin_digits,labels, eta,stem):
 
     i.e. the average log likelihood that the model assigns to the correct class label
     '''
-    cond_likelihood = conditional_likelihood(bin_digits, eta)
-    for i in labels:
-        print('Average conditional likelihood for '+stem+'data in class',i,': ', cond_likelihood[i].mean())
-    # Compute as described above and return
-    return None
+    cond_hd=conditional_likelihood(bin_digits,eta)
+    sum_hd=0;
+    for n in range(bin_digits.shape[0]):
+        sum_hd += cond_hd[n][int(labels[n])]
+    return sum_hd/bin_digits.shape[0];
 
 def classify_data(bin_digits, eta):
     '''
@@ -100,16 +100,18 @@ def main():
     test_data = binarize_data(test_data);
     data_clean = q2_2.deShuffle(train_data,train_labels,shuffled=False)
     # Fit the model
-    eta= compute_parameters(data_clean)
+    eta = compute_parameters(data_clean)
     #print (np.log(eta))
     #print (eta.shape)
     # Evaluation
     plot_images(eta)
 
     print('Train_data: ')
-    avg_conditional_likelihood(data_clean, labels, eta, data.TRAIN_STEM)
+    print('Average conditional likelihood for train data in correct class is: ',\
+          avg_conditional_likelihood(train_data, train_labels, eta))
     print('\nTest_data: ')
-    avg_conditional_likelihood(data_clean, labels, eta, data.TEST_STEM)
+    print('Average conditional likelihood for test data in correct class is: ',\
+          avg_conditional_likelihood(test_data, test_labels, eta))
     print('\nThe accuracy for train data is: ',accuracy(train_labels, train_data, eta));
     print('The accuracy for test data is: ',accuracy(test_labels, test_data,eta));
 

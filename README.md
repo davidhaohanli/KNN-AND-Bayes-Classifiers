@@ -17,7 +17,13 @@ Please keep the file in such structure
 |   |--q2_2.py
 |   |--q2_2_test.py
 |   |--q2_3.py
+|   |--a2_3_test.py
 |
 |--a2digits.zip
+|
+|--temp_data
+|   |--mean
+|   |--cov
+|
 |
 |--README.md

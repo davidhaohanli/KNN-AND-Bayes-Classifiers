@@ -32,7 +32,7 @@ def cond_hd_test():
     eta = q2_3.compute_parameters(data_clean)
     con_hd=q2_3.conditional_likelihood(train_data, eta);
     for n in range(train_data.shape[0]):
-        print ('predict: ',con_hd[n],'label: ',train_labels[n])
+        print ('conditional_likelihood for class 0 to 9: ',con_hd[n],'label: ',train_labels[n])
         q2_0.visualize(train_data[n].reshape(1,-1),timerSet=True);
 
 def main():
