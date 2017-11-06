@@ -132,8 +132,8 @@ def main():
 
 
 
-    [k,loss]=cross_validation(knn)
-    print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',loss)
+    [k,accuracy]=cross_validation(knn)
+    print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',1-accuracy)
     print ('Accuracy for train data with optimal k: ',classification_accuracy(knn,k,train_data,train_labels))
     print ('Accuracy for test data with optimal k: ', classification_accuracy(knn, k, test_data, test_labels))
 
