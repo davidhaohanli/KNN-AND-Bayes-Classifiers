@@ -6,6 +6,7 @@ Here you should implement and evaluate the k-NN classifier.
 
 import data
 import numpy as np
+import heapq
 #Import pyplot - plt.imshow is useful!
 #import matplotlib.pyplot as plt
 
@@ -45,23 +46,34 @@ class KNearestNeighbor(object):
         You should return the digit label provided by the algorithm
         '''
         dist=self.l2_distance(test_point)
+        queue=[]
+
+        #new
+        for n,item in enumerate(dist):
+            queue.append((item,self.train_labels[n]))
+        kSmallest=heapq.nsmallest(k,queue,key=lambda x: x[0])
+
+        #old
+        '''
         ind=dist.argsort()#find the kth smallest ind of dist
-        hashmap={'Dummy':[0,float('inf')]};
-        res='Dummy'
+        '''
         #find the kth smallest dist and count for the most frequently counted one
         #if die happens, then pull out the one with least dist sum
-        for i in range(k):
-            if self.train_labels[ind[i]] not in hashmap:
-                hashmap[self.train_labels[ind[i]]]=[1,dist[ind[i]]];
+
+        res = 'Dummy'
+        hashmap = {'Dummy':[0,float('inf')]};
+        for n,item in enumerate(kSmallest):
+            if item[1] not in hashmap:
+                hashmap[item[1]]=[1,item[0]];
             else:
-                hashmap[self.train_labels[ind[i]]][0]+=1;
-                hashmap[self.train_labels[ind[i]]][0] += dist[ind[i]];
-            if hashmap[res][0] < hashmap[self.train_labels[ind[i]]][0]:
-                res=self.train_labels[ind[i]];
+                hashmap[item[1]][0]+=1;
+                hashmap[item[1]][1] += item[0];
+            if hashmap[res][0] < hashmap[item[1]][0]:
+                res=item[1];
                 continue
-            if hashmap[res][0] == hashmap[self.train_labels[ind[i]]][0]:
-                if hashmap[res][1] > hashmap[self.train_labels[ind[i]]][1]:
-                    res=self.train_labels[ind[i]]
+            if hashmap[res][0] == hashmap[item[1]][0]:
+                if hashmap[res][1] > hashmap[item[1]][1]:
+                    res=item[1]
         return res
 
 def cross_validation(knn, k_range=np.arange(1,16)):
