@@ -57,9 +57,9 @@ class KNearestNeighbor(object):
         '''
         ind=dist.argsort()#find the kth smallest ind of dist
         '''
+
         #find the kth smallest dist and count for the most frequently counted one
         #if die happens, then pull out the one with least dist sum
-
         res = 'Dummy'
         hashmap = {'Dummy':[0,float('inf')]};
         for n,item in enumerate(kSmallest):
