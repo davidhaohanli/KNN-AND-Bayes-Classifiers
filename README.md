@@ -12,14 +12,14 @@ Please keep the file in such structure
 | &emsp;&emsp;&emsp;     |--digits_train_9.txt  
 |  
 |--code  
-| &emsp;&emsp;  |--data.py
-| &emsp;&emsp;  |--q2_0.py
-| &emsp;&emsp;  |--q2_1.py
-| &emsp;&emsp;  |--q2_1_test.py
-| &emsp;&emsp;  |--q2_2.py
-| &emsp;&emsp;  |--q2_2_test.py
-| &emsp;&emsp;  |--q2_3.py
-| &emsp;&emsp;  |--a2_3_test.py
+| &emsp;&emsp;  |--data.py  
+| &emsp;&emsp;  |--q2_0.py  
+| &emsp;&emsp;  |--q2_1.py  
+| &emsp;&emsp;  |--q2_1_test.py  
+| &emsp;&emsp;  |--q2_2.py  
+| &emsp;&emsp;  |--q2_2_test.py  
+| &emsp;&emsp;  |--q2_3.py  
+| &emsp;&emsp;  |--a2_3_test.py  
 |  
 |--a2digits.zip  
 |  
