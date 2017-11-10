@@ -129,9 +129,6 @@ def main():
            '\nAccuracy for test data with k=1: ',classification_accuracy(knn,1,test_data,test_labels),\
            '\nAccuracy for test data with k=15: ',classification_accuracy(knn,15,test_data,test_labels))
 
-
-
-
     [k,accuracy]=cross_validation(knn)
     print ('Optimal K for KNN and the corresponding mean k_fold loss: ',k ,'&',1-accuracy)
     print ('Accuracy for train data with optimal k: ',classification_accuracy(knn,k,train_data,train_labels))

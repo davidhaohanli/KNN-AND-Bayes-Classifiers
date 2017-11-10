@@ -12,6 +12,8 @@ import q2_0
 
 labels=np.arange(10)
 
+np_int=np.vectorize(int);
+
 def compute_mean_mles(train_data):
     '''
     Compute the mean estimate for each digit class
@@ -69,7 +71,7 @@ def deShuffle(train_data, train_labels,shuffled=True):
         for i in range(train_data.shape[0]):
             # print (train_labels[i])
             label = int(train_labels[i])
-            data_clean[label][int(cur[label])] = train_data[i];
+            data_clean[label,int(cur[label])] = train_data[i];
             cur[label] += 1;
     else:
         return train_data.reshape((10,-1,64));
@@ -81,7 +83,7 @@ def plot_cov_diagonal(covariances):
     for i in range(10):
         cov_diag[i] = np.diag(covariances[i])
         # ...
-    q2_0.visualize(cov_diag, np.arange(10),  timerSet=False)
+    q2_0.visualize(cov_diag, np.arange(10), timerSet=False)
 
 def comp_logZ(cov):
     logZ=np.zeros(10)
@@ -124,11 +126,15 @@ def avg_conditional_likelihood(digits, labels, means, covariances):
 
     i.e. the average log likelihood that the model assigns to the correct class label
     '''
-    cond_hd=conditional_likelihood(digits,means,covariances)
+
+    cond_hd = conditional_likelihood(digits,means,covariances)
+    '''
+    cond_hd = conditional_likelihood(digits,means,covariances)
     sum_hd=0;
     for n in range(digits.shape[0]):
         sum_hd += cond_hd[n][int(labels[n])]
-    return sum_hd/digits.shape[0],cond_hd;
+    '''
+    return cond_hd[np.arange(digits.shape[0]),np_int(labels)].sum()/digits.shape[0],cond_hd
 
 def classify_data(digits, means, covariances,con_hd=False):
     '''
