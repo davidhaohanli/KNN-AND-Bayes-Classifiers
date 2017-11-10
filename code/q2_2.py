@@ -33,6 +33,11 @@ def compute_sigma_mles(train_data,means):
     consisting of a covariance matrix for each digit class 
     '''
     cov=np.zeros((10,64,64))
+
+    for label in range(10):
+        this_data = train_data[label]-means[label]
+        cov[label] = this_data.T.dot(this_data)/this_data.shape[0]+0.01*np.identity(64)
+    '''
     for label in range(10):
         for sample in range(train_data.shape[1]):
             train_data[label][sample]-=means[label];
@@ -52,6 +57,7 @@ def compute_sigma_mles(train_data,means):
     # added 0.01I for stable computation
     for i in range(10):
         cov[i]+=0.01*np.identity(64);
+    '''
 
     return cov
 
@@ -75,7 +81,7 @@ def plot_cov_diagonal(covariances):
     for i in range(10):
         cov_diag[i] = np.diag(covariances[i])
         # ...
-    q2_0.visualize(cov_diag, np.arange(10), 10000)
+    q2_0.visualize(cov_diag, np.arange(10),  timerSet=False)
 
 def comp_logZ(cov):
     logZ=np.zeros(10)
