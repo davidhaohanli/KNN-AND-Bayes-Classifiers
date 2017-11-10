@@ -45,13 +45,11 @@ class KNearestNeighbor(object):
 
         You should return the digit label provided by the algorithm
         '''
-        dist=self.l2_distance(test_point)
-        queue=[]
 
         #new
-        for n,item in enumerate(dist):
-            queue.append((item,self.train_labels[n]))
-        kSmallest=heapq.nsmallest(k,queue,key=lambda x: x[0])
+        dist=self.l2_distance(test_point)
+        kSmallest=heapq.nsmallest(k,np.concatenate((dist.reshape(-1,1),self.train_labels.reshape(-1,1)),axis=1)\
+                                  ,key=lambda x: x[0])
 
         #old
         '''
