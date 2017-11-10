@@ -12,8 +12,6 @@ import q2_0
 
 labels=np.arange(10)
 
-np_int=np.vectorize(int);
-
 def compute_mean_mles(train_data):
     '''
     Compute the mean estimate for each digit class
@@ -134,7 +132,7 @@ def avg_conditional_likelihood(digits, labels, means, covariances):
     for n in range(digits.shape[0]):
         sum_hd += cond_hd[n][int(labels[n])]
     '''
-    return cond_hd[np.arange(digits.shape[0]),np_int(labels)].sum()/digits.shape[0],cond_hd
+    return cond_hd[np.arange(digits.shape[0]),np.vectorize(int)(labels)].sum()/digits.shape[0],cond_hd
 
 def classify_data(digits, means, covariances,con_hd=False):
     '''
