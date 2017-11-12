@@ -37,28 +37,6 @@ def compute_sigma_mles(train_data,means):
     for label in range(10):
         this_data = train_data[label]-means[label]
         cov[label] = this_data.T.dot(this_data)/this_data.shape[0]+0.01*np.identity(64)
-    '''
-    for label in range(10):
-        for sample in range(train_data.shape[1]):
-            train_data[label][sample]-=means[label];
-
-    #compute sum_of_each_data((x-mean(x))*(y-mean(y))) for x,y in each dimension
-    for label in range(10):
-        #print ('label: ',label)
-        for x in range(64):
-            for y in range(64):
-                #print ('dimension',x,y)
-                for sample in range(train_data.shape[1]):
-                        cov[label][x][y]+=train_data[label][sample][x]*train_data[label][sample][y];
-
-    # Compute covariances: use sum computed last step divided by
-    cov/=(train_data.shape[1]);
-
-    # added 0.01I for stable computation
-    for i in range(10):
-        cov[i]+=0.01*np.identity(64);
-    '''
-
     return cov
 
 def deShuffle(train_data, train_labels,shuffled=True):
@@ -126,12 +104,6 @@ def avg_conditional_likelihood(digits, labels, means, covariances):
     '''
 
     cond_hd = conditional_likelihood(digits,means,covariances)
-    '''
-    cond_hd = conditional_likelihood(digits,means,covariances)
-    sum_hd=0;
-    for n in range(digits.shape[0]):
-        sum_hd += cond_hd[n][int(labels[n])]
-    '''
     return cond_hd[np.arange(digits.shape[0]),np.vectorize(int)(labels)].sum()/digits.shape[0],cond_hd
 
 def classify_data(digits, means, covariances,con_hd=False):
@@ -152,6 +124,17 @@ def accuracy(labels,digits,means,covariance,con_hd=False):
     else:
         return np.equal(labels,classify_data(digits,means,covariance,con_hd)).mean();
 
+def leading_eig(cov):
+
+    ld_eig=np.zeros((10,64))
+    for label in range(10):
+        #print (label)
+        w,v = np.linalg.eig(cov[label])
+        ld_eig[label] = v[np.argmax(w)]
+        #print (ld_eig[label])
+    #print (ld_eig.shape)
+    return ld_eig
+
 def main():
     train_data, train_labels, test_data, test_labels = data.load_all_data(shuffle=False)
     # Fit the model
@@ -159,6 +142,7 @@ def main():
     means = compute_mean_mles(data_clean)
     covariances = compute_sigma_mles(data_clean, means)
     plot_cov_diagonal(covariances)
+    q2_0.visualize(leading_eig(covariances),labels)
     train_hd=avg_conditional_likelihood(train_data, train_labels, means, covariances)
     test_hd=avg_conditional_likelihood(test_data, test_labels, means, covariances)
     print('Train_data: ')

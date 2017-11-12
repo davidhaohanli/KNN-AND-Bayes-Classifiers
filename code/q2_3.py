@@ -77,13 +77,6 @@ def avg_conditional_likelihood(bin_digits,labels, eta):
 
     i.e. the average log likelihood that the model assigns to the correct class label
     '''
-    '''
-    cond_hd=conditional_likelihood(bin_digits,eta)
-    sum_hd=0;
-    for n in range(bin_digits.shape[0]):
-        sum_hd += cond_hd[n][int(labels[n])]
-    return sum_hd/bin_digits.shape[0];
-    '''
     return conditional_likelihood(bin_digits,eta)[np.arange(bin_digits.shape[0]), np.vectorize(int)(labels)].sum()
 
 def classify_data(bin_digits, eta):

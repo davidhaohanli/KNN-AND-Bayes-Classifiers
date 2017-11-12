@@ -66,15 +66,20 @@ def accuracy_test():
     print (accuracy(train_labels,train_data,mean,cov));
     print (accuracy(test_labels, test_data, mean, cov));
 
+def eig_test():
+    mean, cov = load_mean_cov();
+    q2_0.visualize(leading_eig(cov),labels)
+
 def main():
 
     while 1:
 
         functions={'cov':covariance_test,'mean':mean_test,'plot':read_and_plot_test,\
-                   'con_hd':con_hd_test, 'classification':classify_test,'accuracy':accuracy_test, 'q':exit}
+                   'con_hd':con_hd_test, 'classification':classify_test,'accuracy':accuracy_test,\
+                   'eig':eig_test,'q':exit}
 
         functions[input('Please input the test function name (cov, mean, plot, con_hd,'+\
-                        ' classification, accuracy, q for exit): ')]()
+                        ' classification, accuracy, eig for eig_test,q for exit): ')]()
 
 if __name__ == "__main__":
     main()
