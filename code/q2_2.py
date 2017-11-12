@@ -68,13 +68,23 @@ def comp_logZ(cov):
         logZ[i] = np.log(np.sqrt(((2*np.pi)**64)*np.linalg.det(cov[i])));
     return logZ
 
-def generative_likelihood(digits, means, covariances,logZ):
+def original_likelihood(digits, means, covariances):
+    likelihood = np.zeros((digits.shape[0],10))
+    for label in range(10):
+        x_minus_mean = digits-means[label];
+        for n,data in enumerate(x_minus_mean):
+            likelihood[n][label] = (2*np.pi)**(-64/2)*np.dot(np.linalg.det(covariances[label]),\
+                                    np.exp(-1/2*np.dot(np.dot(data.T,np.linalg.inv(covariances[label])),data)))
+    return likelihood/likelihood.sum(axis=1).reshape((-1,1));
+
+def generative_likelihood(digits, means, covariances):
     '''
     Compute the generative log-likelihood:
         log p(x|y,mu,Sigma)
 
     Should return an n x 10 numpy array 
     '''
+    return np.log(original_likelihood(digits,means,covariances))
     gen_likelihood=np.zeros((digits.shape[0],10))
     for i in range(10):
         x_minus_mean=digits-means[i]
@@ -91,8 +101,8 @@ def conditional_likelihood(digits, means, covariances):
     This should be a numpy array of shape (n, 10)
     Where n is the number of datapoints and 10 corresponds to each digit class
     '''
-    logZ=comp_logZ(covariances);
-    return generative_likelihood(digits,means,covariances,logZ)+np.log(1/10);
+    #logZ=comp_logZ(covariances);
+    return generative_likelihood(digits,means,covariances)+np.log(1/10);
 
 def avg_conditional_likelihood(digits, labels, means, covariances):
     '''
